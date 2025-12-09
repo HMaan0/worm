@@ -1,0 +1,36 @@
+{
+  "name": "worm",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev",
+    "db:push": "turbo -F @worm/db db:push",
+    "db:studio": "turbo -F @worm/db db:studio",
+    "db:generate": "turbo -F @worm/db db:generate",
+    "db:migrate": "turbo -F @worm/db db:migrate"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^2.0.79",
+    "@ai-sdk/react": "^2.0.109",
+    "@mendable/firecrawl-js": "^4.8.3",
+    "ai": "^5.0.108",
+    "dotenv": "^17.2.2",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "twilio": "^5.10.7",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "turbo": "^2.5.4"
+  },
+  "packageManager": "npm@11.6.1"
+}
