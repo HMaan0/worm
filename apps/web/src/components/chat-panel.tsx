@@ -50,7 +50,7 @@ export function ChatPanel({ isOpen = true, onClose }: ChatPanelProps) {
     <div
       className={cn(
         "flex flex-col h-[calc(100vh-2.5rem)] max-h-[calc(100vh-2.5rem)] my-5 mr-5",
-        "w-full lg:w-lg",
+        "w-full lg:w-96",
         isOpen ? "flex bg-gray-50" : "hidden",
         "fixed lg:relative inset-0 lg:inset-auto z-50 lg:z-auto"
       )}

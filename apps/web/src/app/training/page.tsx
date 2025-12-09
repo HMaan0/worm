@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import aiIcon from "@/app/ai.png";
 import Card from "@/components/Card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -118,12 +119,7 @@ export default function TrainingPage() {
                 />
 
                 <div className="border rounded-lg p-4 flex items-center gap-5">
-                  <Image
-                    src={"https://tinyurl.com/yc7ztk3y"}
-                    alt="open ai"
-                    width={40}
-                    height={40}
-                  />
+                  <Image src={aiIcon} alt="open ai" width={40} height={40} />
                   <span className="font-medium text-gray-800">GPT-4o Mini</span>
                   {isSaving && (
                     <span className="text-sm text-gray-500 ml-2">
