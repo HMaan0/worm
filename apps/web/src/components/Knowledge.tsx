@@ -1,4 +1,4 @@
-"use client"; // Ensure this is a client component
+"use client";
 
 import { useState, useEffect } from "react";
 import Card from "./Card";
@@ -6,21 +6,17 @@ import { cn } from "@/lib/utils";
 import { MoreHorizontal, X, Loader2 } from "lucide-react";
 
 export const Knowledge = () => {
-  // Toggle States
   const [customBaseOn, setCustomBaseOn] = useState(false);
   const [websitesOn, setWebsitesOn] = useState(false);
 
-  // Data States
   const [customContext, setCustomContext] = useState("");
   const [websiteLink, setWebsiteLink] = useState("");
 
-  // UI States
   const [showCustomDialog, setShowCustomDialog] = useState(false);
   const [showWebsiteDialog, setShowWebsiteDialog] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // 1. Fetch data on initial load
   useEffect(() => {
     fetch("/api/knowledge")
       .then((res) => res.json())
@@ -34,7 +30,6 @@ export const Knowledge = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // Helper to save state to backend
   const saveToBackend = async (payload: any) => {
     setSaving(true);
     try {
@@ -50,20 +45,18 @@ export const Knowledge = () => {
     }
   };
 
-  // 2. Handle Toggles (save immediately)
   const handleCustomToggle = (val: boolean) => {
     setCustomBaseOn(val);
-    saveToBackend({ customBaseOn: val }); // Save toggle state immediately
+    saveToBackend({ customBaseOn: val });
     if (val) setShowCustomDialog(true);
   };
 
   const handleWebsiteToggle = (val: boolean) => {
     setWebsitesOn(val);
-    saveToBackend({ websitesOn: val }); // Save toggle state immediately
+    saveToBackend({ websitesOn: val });
     if (val) setShowWebsiteDialog(true);
   };
 
-  // 3. Handle Dialog Saves
   const handleCustomSave = async () => {
     await saveToBackend({ customContext: customContext });
     setShowCustomDialog(false);
@@ -97,7 +90,6 @@ export const Knowledge = () => {
         </p>
         <hr className="mb-8 border-gray-200" />
 
-        {/* Custom Knowledge Base Section */}
         <div className="bg-gray-50 border border-gray-100 rounded-lg p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
             Custom Knowledge Base
@@ -112,7 +104,6 @@ export const Knowledge = () => {
               checked={customBaseOn}
               onChange={handleCustomToggle}
             />
-            {/* Click icon to edit if already enabled */}
             <button
               onClick={() => setShowCustomDialog(true)}
               className="p-1 hover:bg-gray-200 rounded-full transition"
@@ -122,7 +113,6 @@ export const Knowledge = () => {
           </div>
         </div>
 
-        {/* Website Section */}
         <div className="bg-gray-50 border border-gray-100 rounded-lg p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
             Consult These Websites For Answers
@@ -153,7 +143,6 @@ export const Knowledge = () => {
         </div>
       </div>
 
-      {/* Custom Context Dialog */}
       {showCustomDialog && (
         <Dialog
           title="Custom Knowledge Context"
@@ -174,7 +163,6 @@ export const Knowledge = () => {
         </Dialog>
       )}
 
-      {/* Website Link Dialog */}
       {showWebsiteDialog && (
         <Dialog
           title="Add Website Link"
@@ -197,8 +185,6 @@ export const Knowledge = () => {
     </Card>
   );
 };
-
-/* --- Subcomponents --- */
 
 function ToggleSwitch({
   checked,

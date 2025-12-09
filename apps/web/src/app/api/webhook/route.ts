@@ -8,8 +8,6 @@ export async function POST(request: Request) {
     const from = formData.get("From") as string | null;
     const body = formData.get("Body") as string | null;
 
-    console.log(`📩 Received message from ${from}: ${body}`);
-
     if (!from || !body) {
       return NextResponse.json(
         { error: "Missing 'From' or 'Body' in request" },
@@ -17,16 +15,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Normalize phone number (strip WhatsApp prefix like "whatsapp:+1...")
     const normalizedPhone = from.replace(/\D+/g, "");
-    // Find or create user record
     const user = await prisma.user.upsert({
       where: { phoneNumber: normalizedPhone },
       update: {},
       create: { phoneNumber: normalizedPhone },
     });
 
-    // Save incoming (user) message
     await prisma.message.create({
       data: {
         userId: user.id,
@@ -35,20 +30,17 @@ export async function POST(request: Request) {
       },
     });
 
-    // Fetch entire conversation history for context
     const history = await prisma.message.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: "asc" },
     });
 
-    // Transform to AI-compatible message format
     const messages = history.map((msg) => ({
       id: msg.id.toString(),
       role: msg.role,
       parts: [{ type: "text", text: msg.content }],
     }));
 
-    // Call your internal AI endpoint
     const aiResponse = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`,
       {
@@ -96,9 +88,6 @@ export async function POST(request: Request) {
     aiText = aiText.trim();
     if (!aiText) aiText = "Sorry, I couldn’t generate a reply.";
 
-    console.log(`🤖 Reply to ${normalizedPhone}:`, aiText);
-
-    // Save assistant message
     await prisma.message.create({
       data: {
         userId: user.id,
@@ -107,7 +96,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send back to WhatsApp via your /api/send endpoint
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

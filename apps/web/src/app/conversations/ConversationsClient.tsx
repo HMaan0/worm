@@ -30,7 +30,6 @@ export default function ConversationsClient({
     setMessages([]);
     const data = await getConversationMessages(conv.id);
 
-    // ensure structure matches expected message parts
     const formatted = data.messages.map((m) => ({
       ...m,
       parts: [{ type: "text", text: m.content }],
@@ -157,7 +156,6 @@ export default function ConversationsClient({
                     </div>
                   ))}
 
-                  {/* Optional Typing Indicator */}
                   {isUserTyping && (
                     <div className="flex justify-start">
                       <LoadingResponse />

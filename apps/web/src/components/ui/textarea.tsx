@@ -7,13 +7,11 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   const handleResize = (target: HTMLTextAreaElement) => {
     target.style.height = "auto";
 
-    // Get line height from computed styles
     const computed = window.getComputedStyle(target);
-    const lineHeight = parseFloat(computed.lineHeight || "20"); // fallback if unavailable
+    const lineHeight = parseFloat(computed.lineHeight || "20");
     const maxLines = 5;
     const maxHeight = lineHeight * maxLines;
 
-    // Apply height logic
     if (target.scrollHeight > maxHeight) {
       target.style.height = `${maxHeight}px`;
       target.style.overflowY = "auto";
@@ -47,7 +45,6 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         "aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
         "resize-none overflow-hidden min-h-[38px]",
-        // Custom scrollbar
         "[&::-webkit-scrollbar]:w-2",
         "[&::-webkit-scrollbar-track]:bg-transparent",
         "[&::-webkit-scrollbar-thumb]:bg-muted-foreground/20",

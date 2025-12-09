@@ -133,10 +133,7 @@ export function Sidebar() {
         {/* Sign Out */}
         <div className="px-4 pb-6  border-gray-200 pt-4">
           <button
-            onClick={() => {
-              // Handle sign out
-              console.log("Sign out clicked");
-            }}
+            onClick={() => {}}
             className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors w-full text-left"
           >
             <ArrowLeft className="size-4" />

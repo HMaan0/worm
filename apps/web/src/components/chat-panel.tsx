@@ -46,7 +46,6 @@ export function ChatPanel({ isOpen = true, onClose }: ChatPanelProps) {
     setMessages([]);
     setInputValue("");
   };
-  console.log(status);
   return (
     <div
       className={cn(
