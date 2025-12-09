@@ -13,6 +13,14 @@ type Conversation = {
   lastUpdated: Date;
 };
 
+type M = {
+  id: number;
+  createdAt: Date;
+  role: string;
+  content: string;
+  userId: number;
+};
+
 export default function ConversationsClient({
   initialConversations,
 }: {
@@ -30,7 +38,7 @@ export default function ConversationsClient({
     setMessages([]);
     const data = await getConversationMessages(conv.id);
 
-    const formatted = data.messages.map((m) => ({
+    const formatted = data.messages.map((m: M) => ({
       ...m,
       parts: [{ type: "text", text: m.content }],
     }));
