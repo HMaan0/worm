@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "dev": "npm run dev",
-    "build": "turbo build",
+    "vercel-build": "npm run db:generate && turbo build",
+    "build": "turbo build && turbo -F @worm/db db:generate",
     "check-types": "turbo check-types",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
