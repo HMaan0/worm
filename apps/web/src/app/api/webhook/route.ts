@@ -1,6 +1,12 @@
 import prisma from "@worm/db";
 import { NextResponse } from "next/server";
-
+type Msg = {
+  id: number;
+  createdAt: Date;
+  role: string;
+  content: string;
+  userId: number;
+};
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -35,7 +41,7 @@ export async function POST(request: Request) {
       orderBy: { createdAt: "asc" },
     });
 
-    const messages = history.map((msg) => ({
+    const messages = history.map((msg: Msg) => ({
       id: msg.id.toString(),
       role: msg.role,
       parts: [{ type: "text", text: msg.content }],
