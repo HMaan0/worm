@@ -49,8 +49,10 @@ export function ChatPanel({ isOpen = true, onClose }: ChatPanelProps) {
   return (
     <div
       className={cn(
-        "flex flex-col h-[calc(100vh-2.5rem)] max-h-[calc(100vh-2.5rem)] my-5 mr-5",
-        "w-full lg:w-96",
+        "flex flex-col",
+        "h-[calc(100dvh-2.5rem)] lg:h-[calc(100vh-2.5rem)]",
+        "max-h-[calc(100dvh-2.5rem)] lg:max-h-[calc(100vh-2.5rem)]",
+        "my-5 mr-5 w-full lg:w-96",
         isOpen ? "flex bg-gray-50" : "hidden",
         "fixed lg:relative inset-0 lg:inset-auto z-50 lg:z-auto"
       )}
@@ -133,9 +135,8 @@ export function ChatPanel({ isOpen = true, onClose }: ChatPanelProps) {
         )}
       </div>
 
-      {/* Input Area */}
-      <div className="shrink-0 px-6 py-4 bg-white rounded-lg">
-        <div className="flex items-center gap-2">
+      <div className="shrink-0 px-6 py-4 bg-white rounded-lg sticky bottom-0 mb-5 pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-center mb-4 gap-2">
           <Textarea
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
